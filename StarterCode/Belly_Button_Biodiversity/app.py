@@ -75,7 +75,7 @@ def sample_metadata(sample):
         sample_metadata["BBTYPE"] = result[5]
         sample_metadata["WFREQ"] = result[6]
 
-    print(sample_metadata)
+    #print(sample_metadata)
     return jsonify(sample_metadata)
 
 
@@ -88,12 +88,14 @@ def samples(sample):
     # Filter the data based on the sample number and
     # only keep rows with values above 1
     sample_data = df.loc[df[sample] > 1, ["otu_id", "otu_label", sample]]
+    #sample_data = sample_data.sort_values(by="otu_id")
     # Format the data to send as json
     data = {
         "otu_ids": sample_data.otu_id.values.tolist(),
         "sample_values": sample_data[sample].values.tolist(),
         "otu_labels": sample_data.otu_label.tolist(),
     }
+    #print(sample_data)
     return jsonify(data)
 
 
